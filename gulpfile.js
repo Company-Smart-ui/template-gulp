@@ -28,14 +28,15 @@ var gulp = require('gulp'),
           fonts: 'dist/fonts/'
         },
         src: { //Пути откуда брать исходники
-          html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
+          html: 'src/pages/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
           js: [
            
           'src/js/*.js'
           ],//В стилях и скриптах нам понадобятся только main файлы
           style: 'src/scss/*.*',
           img: 'src/images/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
-          fonts: 'src/fonts/**/*.*'
+          fonts: 'src/fonts/**/*.*',
+          publicFolder :'public/**/*.*'
         },
         watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
           html: 'src/**/*.html',
@@ -63,6 +64,8 @@ gulp.task('html:build', async function () {
       .pipe(fileinclude()) //Прогоним через fileinclude
       .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
       .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
+    gulp.src(path.src.publicFolder) //скопируем все из папки паблик в дист
+        .pipe(gulp.dest(path.build.html) );
 });
 
 gulp.task('js:build', async function () {
@@ -145,7 +148,7 @@ gulp.task('image:build', async function() {
           }),
           //jpg very light lossy, use vs jpegtran
           imageminMozjpeg({
-              quality: 90
+              quality: 80
           })
       ])))
       .pipe(gulp.dest(path.build.img)); //И бросим в build
