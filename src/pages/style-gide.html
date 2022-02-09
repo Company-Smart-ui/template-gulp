@@ -5,10 +5,27 @@ metadesc:'page with very interesting content'
 
 
 <main class="main">
-var(--primaryColor)   - red
+ <div class="container">
+
+ <div class="app"></div>
+ </div>
 
 </main>
+<script>
+ const app =document.querySelector('.app');
 
+ const cssVars=document.styleSheets[0].cssRules[0].cssText.replace(':root' , ' ').replace('}' , ' ').replace('{' , ' ')
+
+ console.log( cssVars.split(';'))
+ let text = ''
+ cssVars.split(';').forEach((item)=>{
+  text+=`<p>  ${item.replace(' ', '')}   </p>`
+
+
+ })
+
+ app.innerHTML= text;
+</script>
 
 @@include('./html-templates/footer.html',{
 })
