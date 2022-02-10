@@ -9,7 +9,22 @@ metadesc:'page with very interesting content'
 
  <div class="app"></div>
  </div>
+ <style>
 
+  .box{
+   height: 40px;
+   width: 40px;
+   border-radius: 50%;
+   margin-left: 20px;
+  }
+  .parent{
+   display: flex;
+   padding: 20px;
+   border:solid magenta 1px;
+   align-items: center;
+   margin: 10px;
+  }
+ </style>
 </main>
 <script>
  const app =document.querySelector('.app');
@@ -19,7 +34,9 @@ metadesc:'page with very interesting content'
  console.log( cssVars.split(';'))
  let text = ''
  cssVars.split(';').forEach((item)=>{
-  text+=`<p>  ${item.replace(' ', '')}   </p>`
+  text+=`<div class="parent">   ${item.replace(' ', '').replace(':', ' : ')}
+    <div style='background: ${item.split(':')[1]}' class="box"></div>
+    </div>`
 
 
  })
